@@ -45,8 +45,8 @@
           </label>
         <% end %>
 
-        <% if @medication.errors[:dosage_ids].any? %>
-        <span><%= @medication.errors.full_messages_for(:dosage_ids).first %></span>
+        <% if @medication.errors[:dosages].any? %>
+        <span><%= @medication.errors.full_messages_for(:dosages).first %></span>
         <% end %>
 
       <div>
