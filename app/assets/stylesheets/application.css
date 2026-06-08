@@ -9,6 +9,13 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+ /* ナビゲーション */
+  li.active a {
+    color: rgba(0, 93, 200, 0.97);
+    background-color: rgb(213, 234, 255);
+    font-weight: bold;
+  }
+
  /* カレンダー */
  .calendar-body {
   display: grid;
