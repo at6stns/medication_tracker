@@ -10,7 +10,6 @@
     <table>
       <tbody>
         <tr>
-          <th>写真</th>
           <th>お薬名</th>
           <th>用途</th>
           <th>服用期間</th>
@@ -20,7 +19,6 @@
         
         <% @medications.each do |medication| %>
           <tr>
-            <td><%= medication.name %></td>
             <td><%= medication.name %></td>
             <td><%= medication.use %></td>
             <td>
