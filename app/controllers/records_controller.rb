@@ -31,7 +31,7 @@ class RecordsController < ApplicationController
           taken: true
         )
       end
-      redirect_to record_by_date_path(date: Date.current)
+      redirect_to record_by_date_path(date: Date.current), notice: "記録を保存しました"
     else
       @medications = Medication.where(
         "state_date <= ? AND (end_date IS NULL OR end_date >= ?)",
@@ -66,5 +66,4 @@ class RecordsController < ApplicationController
   def record_params
     params.require(:record).permit(:date, :memo, medication_records: [])
   end
-
 end

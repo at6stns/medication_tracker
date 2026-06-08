@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        username: "ユーザー名"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+      medication:
+        name: "薬名"
+        use: "用途"
+        start_date: "服用開始日"
+        end_date: "服用終了日"
+        dosage_ids: "用法"
+      record:
+        date: "日付"
+    errors:
+      messages:
+        blank: "を入力してください"
+        taken: "はすでに登録されています"
+        greater_than: "は服用開始日より後の日付にしてください"

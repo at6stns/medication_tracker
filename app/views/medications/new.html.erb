@@ -4,17 +4,39 @@
 
     <%= form_with model: @medication do |f| %>
       <div>
-        <p>薬の名前</p>
+        <p>薬名</p>
         <%= f.text_field :name %>
+
+        <% if @medication.errors[:name].any? %>
+          <span><%= @medication.errors.full_messages_for(:name).first %></span>
+        <% end %>
+
+
         <p>用途</p>
         <%= f.text_field :use %>
+
+        <% if @medication.errors[:use].any? %>
+        <span><%= @medication.errors.full_messages_for(:use).first %></span>
+        <% end %>
       </div>
+
       <div>
         <p>服用開始日</p>
         <%= f.date_field :start_date %>
+
+         <% if @medication.errors[:start_date].any? %>
+          <span><%= @medication.errors.full_messages_for(:start_date).first %></span>
+        <% end %>
+
         <p>服用終了日</p>
         <%= f.date_field :end_date %>
+
+        <% if @medication.errors[:end_date].any? %>
+          <span><%= @medication.errors.full_messages_for(:end_date).first %></span>
+        <% end %>
       </div>
+
+
       <p>用法(服用タイミング)</p>
         <%= f.collection_check_boxes :dosage_ids, Dosage.all, :id, :name do |b| %>
           <label>
@@ -22,11 +44,16 @@
             <%= b.text %>
           </label>
         <% end %>
+        
+        <% if @medication.errors[:dosage_ids].any? %>
+        <span><%= @medication.errors.full_messages_for(:dosage_ids).first %></span>
+        <% end %>
 
       <div>
         <%= f.submit "登録する" %>
         <%= link_to "キャンセル", medications_path %>
       </div>
     <% end %>
+    
   </div>
 </main>
