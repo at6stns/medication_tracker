@@ -1,0 +1,33 @@
+<main>
+  <div>
+    <h2>お薬の新規登録</h2>
+
+    <%= form_with model: @medication do |f| %>
+      <div>
+        <p>薬の名前</p>
+        <%= f.text_field :name %>
+        <p>用途</p>
+        <%= f.text_field :use %>
+      </div>
+      <p>写真アップロードあとでやる</p>
+      <div>
+        <p>服用開始日</p>
+        <%= f.date_field :start_date %>
+        <p>服用終了日</p>
+        <%= f.date_field :end_date %>
+      </div>
+      <p>用法(服用タイミング)</p>
+        <%= f.collection_check_boxes :dosage_ids, Dosage.all, :id, :name do |b| %>
+          <label>
+            <%= b.check_box %>
+            <%= b.text %>
+          </label>
+        <% end %>
+
+      <div>
+        <%= f.submit "登録する" %>
+        <%= link_to "キャンセル", medications_path %>
+      </div>
+    <% end %>
+  </div>
+</main>

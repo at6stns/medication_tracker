@@ -1,0 +1,70 @@
+<main>
+  <div>
+    <div>
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar, width: 120, height: 120 %>
+      <% else %>
+        <%= image_tag "default.png", width: 125, height: 110 %>
+      <% end %>
+    </div>
+
+    <div>
+      <h2>こんにちは、<%= current_user.username %> 様</h2>
+      <% if @today_record %>
+        <h3><%= @today_record.date %>のお薬リスト</h3>
+        <p>忘れないように服用しましょう</p>
+      <% else %>
+      <p>本日服用するお薬の登録はありません</p>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form_with model: @today_record, url: records_path, method: :post do |f| %>
+  <%= f.hidden_field :date, value: Date.current %> 
+
+    <table>
+      <tbody>
+        <tr>
+          <th>用法</th>
+          <th>薬名</th>
+          <th>用途</th>
+          <th>チェック</th>
+        </tr>
+
+        <% @dosages.each do |dosage| %>
+          <% next unless @medications.any? { |m| m.dosages.include?(dosage) } %>
+        
+          <% @medications.each do |medication| %>
+            <% if medication.dosages.include?(dosage) %>
+              <tr>
+                <td><%= dosage.name %></td>
+                <td><%= medication.name %></td>
+                <td><%= medication.use %></td>
+                <td>
+                  <label for="mr_<%= medication.id %>_<%= dosage.id %>">
+                  <%= check_box_tag(
+                      "medication_records[]", "#{medication.id}-#{dosage.id}",
+                      @today_record.medication_records.any? { |mr| mr.medication_id == medication.id && mr.dosage_id == dosage.id }
+                    ) %>
+                  </label>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div>
+      <p>本日の体調メモ</p>
+      <%= f.text_area :memo, placeholder:"今日の体調や薬を飲んで気になったことを入力してください" %>
+    </div>
+
+    <%= f.submit "保存する" %>
+  <% end %>
+
+  <%# 飲み合わせ率を表示する %>
+  <div>
+    <p>現在の飲み忘れ率</p>
+  </div>
+</main>
