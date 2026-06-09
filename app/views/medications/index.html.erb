@@ -8,7 +8,7 @@
   </div>
 
   <div class="card border-0 shadow-sm">
-    <table class="table table-hover mb-0" style="font-size:16px">
+    <table class="table table-hover mb-0" style="font-size:16px; white-space:nowrap">
       <thead class="table-light">
         <tr>
           <th class="fw-semibold text-center" style="font-size:14px">薬名</th>
@@ -31,7 +31,7 @@
                 <span style="font-size:16px">継続中</span>
               <% end %>
             </td>
-            <td class="text-center">
+            <td class="text-center" style="max-width:350px;white-space:normal">
               <%= medication.dosages.map(&:name).join(" / ") %>
             </td>
             <td class="text-center">
