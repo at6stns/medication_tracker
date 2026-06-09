@@ -1,45 +1,52 @@
 <main>
-  <div>
-    <h2>登録済みのお薬</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0" style="font-size:24px">登録済みのお薬</h2>
 
-    <%= link_to new_medication_path do %>
-      新しいお薬を登録
+    <%= link_to new_medication_path, class: "btn btn-sm fw-semibold text-white px-3", style: "background:#2D7D9A;border-radius:8px" do %>
+      <i class="bi bi-plus-lg"></i>新しいお薬を登録
     <% end %>
   </div>
 
-    <table>
-      <tbody>
+  <div class="card border-0 shadow-sm">
+    <table class="table table-hover mb-0" style="font-size:16px">
+      <thead class="table-light">
         <tr>
-          <th>薬名</th>
-          <th>用途</th>
-          <th>服用期間</th>
-          <th>用法</th>
-          <th>操作</th>
+          <th class="fw-semibold text-center" style="font-size:14px">薬名</th>
+          <th class="fw-semibold text-center" style="font-size:14px">用途</th>
+          <th class="fw-semibold text-center" style="font-size:14px">服用期間</th>
+          <th class="fw-semibold text-center" style="font-size:14px">用法</th>
+          <th class="fw-semibold text-center" style="font-size:14px">操作</th>
         </tr>
-        
+      </thead>
+      <tbody>
         <% @medications.each do |medication| %>
           <tr>
-            <td><%= medication.name %></td>
-            <td><%= medication.use %></td>
-            <td>
-              <%= medication.start_date %>～
+            <td class="text-center"><%= medication.name %></td>
+            <td class="text-center"><%= medication.use %></td>
+            <td class="text-center">
+              <%= medication.start_date.strftime("%Y/%m/%d") %>～
               <% if medication.end_date.present? %>
-                <%= medication.end_date %>
+                <%= medication.end_date.strftime("%Y/%m/%d") %>
               <% else %>
-                <p>継続中</p>
+                <span style="font-size:16px">継続中</span>
               <% end %>
             </td>
-            <td><%= medication.dosages.map(&:name).join(" / ") %></td>
-            <td>
-              <%= link_to edit_medication_path(medication) do %>
-                (アイコン編集ボタン)
-              <% end %>
-              <%= link_to medication_path(medication), data: {"turbo_method": :delete, "turbo_confirm": "#{medication.name}を削除してもよろしいですか？\nこの操作は取り消せません。"} do %>
-                (アイコン削除ボタン)
-              <% end %>
+            <td class="text-center">
+              <%= medication.dosages.map(&:name).join(" / ") %>
+            </td>
+            <td class="text-center">
+              <div style="display:flex;gap:12px;justify-content:center">
+                <%= link_to edit_medication_path(medication), style: "color:#2D7D9A;font-size:16px" do %>
+                  <i class="bi bi-pencil"></i>編集
+                <% end %>
+                <%= link_to medication_path(medication), data: {"turbo_method": :delete, "turbo_confirm": "#{medication.name}を削除してもよろしいですか？\nこの操作は取り消せません。"}, style: "color:#E53E3E;font-size:16px" do %>
+                  <i class="bi bi-trash"></i>削除
+                <% end %>
+              </div>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
+  </div>
 </main>

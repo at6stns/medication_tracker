@@ -1,65 +1,73 @@
 <main>
-  <div>
-    <div>
+  <div class="welcome-card d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center gap-3">
       <% if @user.avatar.attached? %>
-        <%= image_tag @user.avatar, width: 120, height: 120 %>
+        <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;flex-shrink:0">
+          <%= image_tag @user.avatar, style: "width:100%;height:100%;object-fit:cover" %>
+        </div>
       <% else %>
-        <%= image_tag "default.png", width: 125, height: 110 %>
+        <%= image_tag "default.png", width: 125, height: 110, style: "border-radius:50%;object-fit:cover" %>
       <% end %>
     </div>
 
     <div>
-      <h2>こんにちは、<%= current_user.username %> 様</h2>
+      <h2 class="mb-1" style="font-size:20px">こんにちは、<%= current_user.username %> 様</h2>
       <% if @today_record %>
         <h3><%= @today_record.date %>のお薬リスト</h3>
-        <p>忘れないように服用しましょう</p>
+        <p class="mb-0" style="font-size:16px;opacity:0.85">忘れないように服用しましょう</p>
       <% else %>
-      <p>本日服用するお薬の登録はありません</p>
+      <p  class="mb-0" style="font-size:16px;opacity:0.85">本日服用するお薬の登録はありません</p>
       <% end %>
     </div>
+    <div style="font-size:36px;opacity:0.7">💊</div>
   </div>
 
   <%= form_with model: @today_record, url: records_path, method: :post do |f| %>
   <%= f.hidden_field :date, value: Date.current %> 
 
-    <table>
-      <tbody>
-        <tr>
-          <th>用法</th>
-          <th>薬名</th>
-          <th>用途</th>
-          <th>チェック</th>
-        </tr>
-
-        <% @dosages.each do |dosage| %>
-          <% next unless @medications.any? { |m| m.dosages.include?(dosage) } %>
-        
-          <% @medications.each do |medication| %>
-            <% if medication.dosages.include?(dosage) %>
-              <tr>
-                <td><%= dosage.name %></td>
-                <td><%= medication.name %></td>
-                <td><%= medication.use %></td>
-                <td>
-                  <label for="mr_<%= medication.id %>_<%= dosage.id %>">
-                  <%= check_box_tag(
+    <div class="card border-0 shadow-sm">
+      <table class="table table-hover mb-0" style="font-size:16px">
+        <thead class="table-light">
+          <tr>
+            <th class="fw-semibold text-center" style="font-size:14px">用法</th>
+            <th class="fw-semibold text-center" style="font-size:14px">薬名</th>
+            <th class="fw-semibold text-center" style="font-size:14px">用途</th>
+            <th class="fw-semibold text-center" style="font-size:14px">チェック</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @dosages.each do |dosage| %>
+            <% next unless @medications.any? { |m| m.dosages.include?(dosage) } %>
+          
+            <% @medications.each do |medication| %>
+              <% if medication.dosages.include?(dosage) %>
+                <tr>
+                  <td class="text-center"><span class="dosage-tag"><%= dosage.name %></span></td>
+                  <td class="text-center"><%= medication.name %></td>
+                  <td class="text-center"><%= medication.use %></td>
+                  <td class="text-center">
+                    <label for="mr_<%= medication.id %>_<%= dosage.id %>">
+                    <%= check_box_tag(
                       "medication_records[]", "#{medication.id}-#{dosage.id}",
-                      @today_record.medication_records.any? { |mr| mr.medication_id == medication.id && mr.dosage_id == dosage.id }
-                    ) %>
-                  </label>
-                </td>
-              </tr>
+                        @today_record.medication_records.any? { |mr| mr.medication_id == medication.id && mr.dosage_id == dosage.id }
+                      ) %>
+                    </label>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    <div>
-      <p>本日の体調メモ</p>
-      <%= f.text_area :memo, placeholder:"今日の体調や薬を飲んで気になったことを入力してください" %>
+      <div class="p-3 border-top">
+        <label class="form-label fw-semibold text-muted" style="font-size:16px">体調メモ</label>
+        <%= f.text_area :memo, class: "form-control", rows: 3, placeholder:"今日の体調や薬を飲んで気になったことを入力してください", style: "font-size:15px;background:#F7F9FC" %>
+
+        <div class="text-end mt-2">
+          <%= f.submit "保存する", class: "btn btn-sm px-4 fw-semibold text-white", style: "background:#2D7D9A;border-radius:8px" %>
+        </div>
+      </div>
     </div>
-
-    <%= f.submit "保存する" %>
   <% end %>
 </main>

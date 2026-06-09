@@ -5,20 +5,26 @@
       .group_by { |mr| mr.dosage.name } 
       .each do |dosage_name, mrs| %>
 
-      <p>○<%= dosage_name %></p>
+      <div class="mb-3">
+        <span class="badge rounded-pill mb-2" style="background:#E8F4F8;color:#2D7D9A;font-size:16px;font-weight:600">
+          <%= dosage_name %>
+        </span>
 
-      <ul>
-        <% mrs.each do |mr| %>
-          <li>
-            <%= mr.medication.name %>
-            (<%= mr.medication.use %>)
-          </li>
-        <% end %>
-      </ul>
+        <ul class="list-unstyled ps-2 mb-0">
+          <% mrs.each do |mr| %>
+            <li class="d-flex align-items-center gap-2 py-1" style="font-size:20px">
+              <span  style="width:6px;height:6px;border-radius:50%;background:#48BB78;flex-shrink:0;display:inline-block"></span>
+              <%= mr.medication.name %>
+
+              <span style="font-size:16px">(<%= mr.medication.use %>)</span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
 
-    <div>
-      <p>
+    <div class="border-top pt-3 mt-2">
+      <p class="fw-semibold text-muted mb-1 d-flex align-items-center gap-2" style="font-size:16px">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
         <polyline points="14 2 14 8 20 8"></polyline>
