@@ -1,6 +1,11 @@
 require "test_helper"
 
 class MedicationsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    sign_in @user
+  end
+
   test "should get index" do
     get medications_url
     assert_response :success
