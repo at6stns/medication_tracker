@@ -2,17 +2,17 @@ require "test_helper"
 
 class MedicationsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get medications_index_url
+    get medications_url
     assert_response :success
   end
 
   test "should get new" do
-    get medications_new_url
+    get new_medication_url
     assert_response :success
   end
 
   test "should get create" do
-    get medications_create_url
+    post medications_url
     assert_response :success
   end
 end
