@@ -67,3 +67,5 @@ end
 
 gem "devise"
 gem "rails-i18n"
+
+gem "dockerfile-rails", ">= 1.7", group: :development
