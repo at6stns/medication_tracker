@@ -1,7 +1,23 @@
 require "test_helper"
 
-class MedicationRecordsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+class MedicationsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    sign_in @user
+  end
+
+  test "should get index" do
+    get medications_url
+    assert_response :success
+  end
+
+  test "should get new" do
+    get new_medication_url
+    assert_response :success
+  end
+
+  test "should get create" do
+    post medications_url
+    assert_response :success
+  end
 end
