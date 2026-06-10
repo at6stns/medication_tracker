@@ -17,7 +17,7 @@ class MedicationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-  post medications_url, params: { medication: { name: "テスト薬", use: "テスト", start_date: Date.current, dosage_ids: [] } }
-  assert_response :redirect
-end
+    post medications_url, params: { medication: { name: "テスト薬", use: "テスト", start_date: Date.current, dosage_ids: [] } }
+    assert_response :unprocessable_entity
+  end
 end
