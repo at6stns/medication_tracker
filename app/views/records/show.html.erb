@@ -1,0 +1,63 @@
+<h2 class="fw-bold mb-4" style="font-size:24px">
+服用履歴
+</h2>
+
+<%# 月ナビゲーション %>
+<div style = "display:flex; align-items:center; gap:12px; margin-bottom:12px">
+  <%= link_to "◁", record_by_date_path(date: @selected_date.last_month), class: "btn btn-sm btn-outline-secondary" %>
+  <span class="fw-bold" style="font-size:20px"><%= @selected_date.strftime("%Y年 %m月") %></span>
+  <%= link_to "▷", record_by_date_path(date: @selected_date.next_month), class: "btn btn-sm btn-outline-secondary" %>
+</div>
+
+<%# 曜日ヘッダー %>
+<div class="calendar">
+  <div class="calendar-header">
+    <div>日</div>
+    <div>月</div>
+    <div>火</div>
+    <div>水</div>
+    <div>木</div>
+    <div>金</div>
+    <div>土</div>
+  </div>
+
+<%# カレンダー本体 %>
+  <div class="calendar-body">
+    <% start_wday = @start_date.wday %>
+
+    <% start_wday.times do %>
+      <div class="calendar-cell empty"></div>
+    <% end %>
+
+    <% @calendar_days.each do |day| %>
+      <% record = @records[day] %>
+
+      <%= link_to record_by_date_path(date: day), class: "cal-link" do %>
+        <div class="calendar-cell">
+          <%= day.day %>
+          <% if record.present? %>
+            <% total = @medications.joins(:dosages).count %>
+            <% done = record.medication_records.count %>
+            <% if done >= total && done > 0 %>
+              <div class="check-mark">✔</div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%# 記録詳細 %>
+<% if @record.present? %>
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-semibold" style="font-size:18px">
+      <%= @record.date %>の記録
+    </div>
+    <div class="card-body">
+      <%= render "detail", record: @record %>
+    </div>
+  </div>
+<% else %>
+  <p class="text-muted" style="font-size:20px; margin-top:10px;">データがありません</p>
+<% end %>

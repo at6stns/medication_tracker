@@ -1,0 +1,60 @@
+<h2 class="fw-bold mb-4" style="font-size:24px">お薬の編集</h2>
+
+<div class="card border-0 shadow-sm" style="max-width:560px">
+  <div class="card-body p-4">
+
+    <%= form_with model: @medication do |f| %>
+      <div class="mb-3">
+        <%= f.label :name, "薬名", class: "form-label fw-semibold text-muted", style: "font-size:16px" %>
+        <%= f.text_field :name, class: "form-control" %>
+        <% if @medication.errors[:name].any? %>
+          <p class="text-danger mt-1" style="font-size:16px"><%= @medication.errors.full_messages_for(:name).first %></p>
+        <% end %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :use, "用途", class: "form-label fw-semibold text-muted", style: "font-size:16px" %>
+        <%= f.text_field :use, class: "form-control" %>
+        <% if @medication.errors[:use].any? %>
+        <p class="text-danger mt-1" style="font-size:16px"><%= @medication.errors.full_messages_for(:use).first %></p>
+        <% end %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :start_date, "服用開始日", class: "form-label fw-semibold text-muted", style: "font-size:16px" %>
+        <%= f.date_field :start_date, class: "form-control" %>
+        <% if @medication.errors[:start_date].any? %>
+          <p class="text-danger mt-1" style="font-size:16px"><%= @medication.errors.full_messages_for(:start_date).first %></p>
+        <% end %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :end_date, "服用終了日", class: "form-label fw-semibold text-muted", style: "font-size:16px" %>
+        <%= f.date_field :end_date, class: "form-control" %>
+        <% if @medication.errors[:end_date].any? %>
+          <p class="text-danger mt-1" style="font-size:16px"><%= @medication.errors.full_messages_for(:end_date).first %></p>
+        <% end %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :dosage_ids, "用法（服用タイミング）", class: "form-label fw-semibold text-muted", style: "font-size:16px" %>
+        <div class="d-flex flex-wrap gap-2 mt-1">
+          <%= f.collection_check_boxes :dosage_ids, Dosage.all, :id, :name do |b| %>
+            <label class="d-flex align-items-center gap-1 px-3 py-1 rounded-pill" style="background:#F7F9FC;border:1px solid #E2E8F0;font-size:16px;cursor:pointer">
+              <%= b.check_box %>
+              <%= b.text %>
+            </label>
+          <% end %>
+        </div>
+        <% if @medication.errors[:dosages].any? %>
+        <p class="text-danger mt-1" style="font-size:16px"><%= @medication.errors.full_messages_for(:dosages).first %></p>
+        <% end %>
+      </div>
+        
+      <div class="d-flex gap-2 justify-content-end">
+        <%= link_to "キャンセル", medications_path, class: "btn btn-outline-secondary px-4" %>
+        <%= f.submit "更新する", class: "btn fw-semibold text-white px-4", style: "background:#2D7D9A;border-radius:8px" %>
+      </div>
+    <% end %>
+  </div>
+</div>

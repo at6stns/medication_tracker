@@ -1,0 +1,43 @@
+<div class="min-vh-100 d-flex flex-column align-items-center justify-content-center" style="background:#F7F9FC">
+  <div class="text-center mb-4">
+    <h1 lass="fw-bold d-flex align-items-center justify-content-center gap-2" style="color:#2D7D9A;font-size:22px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>くすログ
+    </h1>
+  </div>
+
+  <div class="card border-0 shadow-sm" style="width:100%;max-width:380px;border-radius:16px">
+    <div class="card-body p-4">
+      <h2 class="fw-bold mb-4" style="font-size:18px">ログイン</h2>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field mb-3">
+          <%= f.label :email, "メールアドレス",class:"form-label fw-semibold text-muted", style:"font-size:14px" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        </div>
+
+        <div class="field mb-3">
+          <%= f.label :password, "パスワード",class:"form-label fw-semibold text-muted", style:"font-size:14px" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="mb-3 d-flex align-items-center gap-2">
+            <%= f.check_box :remember_me, class: "form-check-input" %>
+            <%= f.label :remember_me, "ログインを記憶する ", class: "form-check-label text-muted", style: "font-size:13px" %>
+          </div>
+        <% end %>
+
+        <div class="d-grid mt-4">
+          <%= f.submit "ログイン", class: "btn fw-semibold text-white w-100", style: "background:#2D7D9A;border-radius:8px;padding:11px" %>
+        </div>
+
+      <% end %>
+
+      <div class="text-center mt-3" style="font-size:14px">
+        <%= render "devise/shared/links" %>
+      </div>
+
+      <%= button_to "ゲストとしてログイン", guest_sign_in_path, method: :post, class: "btn w-100 mt-2 fw-semibold", style: "background:#F7F9FC;border:1px solid #E2E8F0;border-radius:8px;padding:11px;font-size:14px;color:#718096" %>
+    </div>
+  </div>
+</div>

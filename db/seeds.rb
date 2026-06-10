@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Dosage.create(name: "朝食前")
+Dosage.create(name: "朝食後")
+Dosage.create(name: "昼食前")
+Dosage.create(name: "昼食後")
+Dosage.create(name: "夕食前")
+Dosage.create(name: "夕食後")
+Dosage.create(name: "就寝前")

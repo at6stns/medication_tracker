@@ -1,0 +1,40 @@
+<h2 class="fw-bold mb-4" style="font-size:24px">マイページ</h2>
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body p-4 d-flex align-items-center gap-4">
+    <div>
+      <% if @user.avatar.attached? %>
+        <div style="width:80px;height:80px;border-radius:50%;overflow:hidden">
+          <%= image_tag @user.avatar, width: 120, height: 120 %>
+        </div>
+      <% else %>
+        <div style="width:80px;height:80px;border-radius:50%;background:#E8F4F8;display:flex;align-items:center;justify-content:center;font-size:32px">
+          <%= image_tag "default.png", width: 120, height: 120 %>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <h3 class="fw-bold mb-1" style="font-size:20px"><%= @user.username %></h3>
+    </div>
+  </div>
+</div>
+  
+
+<div class="card border-0 shadow-sm">
+  <div class="card-body p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-2" style="border-bottom:1px solid #E2E8F0">
+      <h4 class="fw-semibold mb-0" style="font-size:18px">基本情報</h4>
+       <%= link_to "アカウント編集", edit_user_registration_path, data: { turbo: false }, style: "color:#2D7D9A;font-size:16px" %>
+    </div>
+
+    
+  </div>
+  <div class="mb-3 ps-4">
+    <small class="text-muted fw-semibold d-block mb-1" style="font-size:16px">メールアドレス</small>
+    <p class="mb-0" style="font-size:16px"><%= @user.email %></p>
+  </div>
+
+  <div class="mb-4 ps-4">
+    <small class="text-muted fw-semibold d-block mb-1" style="font-size:16px">ユーザー名</small>
+    <p class="mb-0" style="font-size:16px"><%= @user.username %></p>
+  </div>
+</div>

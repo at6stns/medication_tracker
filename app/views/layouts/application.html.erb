@@ -21,9 +21,72 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   </head>
 
   <body>
-    <%= yield %>
+    <% if user_signed_in? %>
+      <div class="d-flex">
+        <aside class="sidebar">
+          <%= link_to records_path, class: "sidebar-brand" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>
+            くすログ
+          <% end %>
+
+          <div class="p-3">
+            <ul class="nav flex-column sidebar-nav gap-1">
+              <li class="nav-item">
+                <%= link_to records_path, class: "nav-link #{'active' if current_page?(records_path)}" do %>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  ホーム
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to medications_path, class: "nav-link #{'active' if current_page?(medications_path)}" do %>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+                  お薬一覧
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to record_by_date_path(date: Date.current), class: "nav-link #{'active' if request.path.start_with?('/records/date')}" do %>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  カレンダー
+                <% end %>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-bottom">
+            <%= link_to mypage_path, class: "nav-link" do %>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              マイページ
+            <% end %>
+            <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link logout-link" do %>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              ログアウト
+            <% end %>
+          </div>
+        </aside>
+
+        <main class="main-content flex-grow-1" style="max-width: 700px;">
+          <% if notice.present? %>
+            <p class="notice"><%= notice %></p>
+          <% end %>
+          <% if alert.present? %>
+            <p class="alert"><%= alert %></p>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+    <% else %>
+      <% if notice.present? %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
