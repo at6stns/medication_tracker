@@ -7,7 +7,7 @@
 <img width="1917" height="862" alt="Image" src="https://github.com/user-attachments/assets/60926b0c-4466-4966-9053-4b537beadff8" />
 
 ## アプリURL
-
+https://medication-tracker.fly.dev
 
 ## 開発背景
 調剤薬局での勤務を通じて、複数の医療機関から多くのお薬を処方されている患者様が多いことに気づいた。その中で、「お薬をよく飲み忘れる」、「どれが何の薬か分からなくなる」とおっしゃる方々も少なくない。
@@ -37,7 +37,7 @@
 - GitHub
 
 デプロイ
-- Render
+- Fly.io
 
 
 ## ER図

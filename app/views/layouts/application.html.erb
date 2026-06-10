@@ -81,10 +81,10 @@
       </div>
     <% else %>
       <% if notice.present? %>
-        <p class="notice"><%= notice %></p>
+        <p class="notice" style="max-width:380px;margin:16px auto"><%= notice %></p>
       <% end %>
       <% if alert.present? %>
-        <p class="alert"><%= alert %></p>
+        <p class="alert" style="max-width:380px;margin:16px auto"><%= alert %></p>
       <% end %>
       <%= yield %>
     <% end %>

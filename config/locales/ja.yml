@@ -6,6 +6,7 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "パスワード確認"
+        current_password: "現在のパスワード"
       medication:
         name: "薬名"
         use: "用途"
