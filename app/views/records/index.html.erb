@@ -2,11 +2,11 @@
   <div class="welcome-card d-flex justify-content-between align-items-center mb-4">
     <div class="d-flex align-items-center gap-3">
       <% if @user.avatar.attached? %>
-        <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;flex-shrink:0">
-          <%= image_tag @user.avatar, style: "width:100%;height:100%;object-fit:cover" %>
+        <div class="avatar-wrap" style="width:100px;height:100px;border-radius:50%;overflow:hidden;flex-shrink:0">
+          <%= image_tag @user.avatar, style: "width:100%;height:100%;object-fit:cover;",class: "sp_img" %>
         </div>
       <% else %>
-        <%= image_tag "default.png", style: "width: 100px; height: 100px; border-radius:50%;object-fit:cover;" %>
+        <%= image_tag "default.png", style: "width: 100px; height: 100px; border-radius:50%;object-fit:cover;", class: "sp_img" %>
       <% end %>
     </div>
 
@@ -19,7 +19,7 @@
       <p  class="mb-0" style="font-size:16px;opacity:0.85">本日服用するお薬の登録はありません</p>
       <% end %>
     </div>
-    <div style="font-size:36px;opacity:0.7">💊</div>
+    <div class="medicine_img" style="font-size:36px;opacity:0.7">💊</div>
   </div>
 
   <%= form_with model: @today_record, url: records_path, method: :post do |f| %>
