@@ -185,3 +185,39 @@
   font-size: 14px !important;
   margin-bottom: 16px !important;
 }
+
+/* スマホ表示 */
+  @media (max-width: 767px) {
+    .main-content {
+      margin-left: 0 !important;
+      padding: 16px;
+      padding-top: 16px;
+    }
+
+    .pc_nav {
+      display: none;
+    }
+
+    .sidebar {
+      display: none;
+    }
+
+    .sidebar-bottom {
+      display: none;
+    }
+
+    .sp_img {
+      width: 70px !important;
+      height: 70px !important;
+    }
+
+    .avatar-wrap {
+      width: 70px !important;
+      height: 70px !important;
+    }
+
+    .medicine_img {
+      display: none;
+    }
+
+  }

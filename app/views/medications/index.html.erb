@@ -8,45 +8,47 @@
   </div>
 
   <div class="card border-0 shadow-sm">
-    <table class="table table-hover mb-0" style="font-size:16px; white-space:nowrap">
-      <thead class="table-light">
-        <tr>
-          <th class="fw-semibold text-center" style="font-size:14px">薬名</th>
-          <th class="fw-semibold text-center" style="font-size:14px">用途</th>
-          <th class="fw-semibold text-center" style="font-size:14px">服用期間</th>
-          <th class="fw-semibold text-center" style="font-size:14px">用法</th>
-          <th class="fw-semibold text-center" style="font-size:14px">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @medications.each do |medication| %>
+    <div style="overflow-x:auto" class="table-responsive">
+      <table class="table table-hover mb-0" style="font-size:16px;min-width:600px">
+        <thead class="table-light">
           <tr>
-            <td class="text-center"><%= medication.name %></td>
-            <td class="text-center"><%= medication.use %></td>
-            <td class="text-center">
-              <%= medication.start_date.strftime("%Y/%m/%d") %>～
-              <% if medication.end_date.present? %>
-                <%= medication.end_date.strftime("%Y/%m/%d") %>
-              <% else %>
-                <span style="font-size:16px">継続中</span>
-              <% end %>
-            </td>
-            <td class="text-center" style="max-width:350px;white-space:normal">
-              <%= medication.dosages.map(&:name).join(" / ") %>
-            </td>
-            <td class="text-center">
-              <div style="display:flex;gap:12px;justify-content:center">
-                <%= link_to edit_medication_path(medication), style: "color:#2D7D9A;font-size:16px" do %>
-                  <i class="bi bi-pencil"></i>編集
-                <% end %>
-                <%= link_to medication_path(medication), data: {"turbo_method": :delete, "turbo_confirm": "#{medication.name}を削除してもよろしいですか？\nこの操作は取り消せません。"}, style: "color:#E53E3E;font-size:16px" do %>
-                  <i class="bi bi-trash"></i>削除
-                <% end %>
-              </div>
-            </td>
+            <th class="fw-semibold text-center" style="font-size:14px">薬名</th>
+            <th class="fw-semibold text-center" style="font-size:14px">用途</th>
+            <th class="fw-semibold text-center" style="font-size:14px">服用期間</th>
+            <th class="fw-semibold text-center" style="font-size:14px">用法</th>
+            <th class="fw-semibold text-center" style="font-size:14px">操作</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @medications.each do |medication| %>
+            <tr>
+              <td class="text-center"><%= medication.name %></td>
+              <td class="text-center" style="min-width:100px;"><%= medication.use %></td>
+              <td class="text-center" style="max-width:100px;">
+                <%= medication.start_date.strftime("%Y/%m/%d") %>～
+                <% if medication.end_date.present? %>
+                  <%= medication.end_date.strftime("%Y/%m/%d") %>
+                <% else %>
+                  <span style="font-size:16px">継続中</span>
+                <% end %>
+              </td>
+              <td class="text-center" style="max-width:150px;white-space:normal;word-break:break-all">
+                <%= medication.dosages.map(&:name).join(" / ") %>
+              </td>
+              <td class="text-center" style="min-width:150px">
+                <div style="display:flex;gap:12px;justify-content:center">
+                  <%= link_to edit_medication_path(medication), style: "color:#2D7D9A;font-size:16px" do %>
+                    <i class="bi bi-pencil"></i>編集
+                  <% end %>
+                  <%= link_to medication_path(medication), data: {"turbo_method": :delete, "turbo_confirm": "#{medication.name}を削除してもよろしいですか？\nこの操作は取り消せません。"}, style: "color:#E53E3E;font-size:16px" do %>
+                    <i class="bi bi-trash"></i>削除
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </main>
