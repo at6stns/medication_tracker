@@ -220,4 +220,9 @@
       display: none;
     }
 
+    .scroller {
+      overflow: scroll;
+      width: 330px;
+    }
+
   }
