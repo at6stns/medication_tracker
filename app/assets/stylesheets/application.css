@@ -130,7 +130,6 @@
   }
 
   .check-mark {
-    color: #48BB78 !important;
     font-weight: bold;
     text-align: center;
     font-size: 20px;
@@ -141,6 +140,14 @@
   color: inherit !important;
   display: block;
 }
+
+  .calendar-cell.is-today {
+    background-color: #E8F4F8;
+  }
+
+  .calendar-cell.is-selected {
+    background-color: #d4ffec;
+  }
 
   input[type="checkbox"] {
     width: 20px;
